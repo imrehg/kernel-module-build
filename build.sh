@@ -132,6 +132,9 @@ function get_and_build()
 	cp -R "$module_dir"/* "$output_dir"
 
 	push "$output_dir"
+	wget https://raw.githubusercontent.com/igorpecovnik/lib/next/patch/headers-debian-byteshift.patch -O "${tmp_path}/headers-debian-byteshift.patch"
+	patch -d "${tmp_path}" < "${tmp_path}/headers-debian-byteshift.patch"
+	make -C "$tmp_path" scripts
 	make -C "$tmp_path" M="$PWD" modules
 	pop
 
